@@ -52,3 +52,6 @@ end
 
 gem "twitter-bootstrap-rails"
 
+# these gems are for web scraping
+gem 'mechanize'
+gem 'nokogiri'
