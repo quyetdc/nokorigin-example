@@ -1,3 +1,18 @@
 // Place all the styles related to the scrapts controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+.custom-input {
+  display: inline-block;
+  width: 75%;
+  float: left;
+}
+
+.ct-form-tag {
+  width: 70%;
+  margin: auto;
+  display: block;
+}
+
+#search-box {
+  margin-top: 150px;
+}
