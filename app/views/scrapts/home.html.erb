@@ -1,12 +1,18 @@
 <div class="container">
   <div class="row">
     <div id="search-box" class="col-md-8 col-md-offset-2">
-      <%= form_tag('/search') do -%>
+      <%= form_tag('/search', remote: true) do -%>
           <div class="form-group ct-form-tag">
             <%= text_field_tag 'Search', nil, placeholder: 'Enter search term...', class: "form-control custom-input" %>
             <%= submit_tag 'Search', class: "btn btn-default pull-right" %>
           </div>
       <% end -%>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-8">
+      <div id="search-result"></div>
     </div>
   </div>
 </div>

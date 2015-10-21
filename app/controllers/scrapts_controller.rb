@@ -9,7 +9,7 @@ class ScraptsController < ApplicationController
 
   # POST /search
   def search
-    binding.pry
+    # binding.pry
 
     browser = Watir::Browser.new
     browser.goto 'http://lexin.nada.kth.se/lexin/#searchinfo=both,swe_swe,hittar;'
