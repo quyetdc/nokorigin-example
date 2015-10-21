@@ -7,6 +7,8 @@ Rails.application.routes.draw do
   # You can have the root of your site routed with "root"
   root 'scrapts#home'
 
+  post '/search' => 'scrapts#search'
+
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 
