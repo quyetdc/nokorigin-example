@@ -10,29 +10,29 @@ class ScraptsController < ApplicationController
   # POST /search
   def search
     # binding.pry
-    headless = Headless.new
-    headless.start
-    browser = Watir::Browser.start "http://lexin.nada.kth.se/lexin/#searchinfo=both,swe_swe,#{params[:search]};"
+    # headless = Headless.new
+    # headless.start
+    # browser = Watir::Browser.start "http://lexin.nada.kth.se/lexin/#searchinfo=both,swe_swe,#{params[:search]};"
     
-    doc = Nokogiri::HTML.parse(browser.html)
-    doc.search('img[src="img/tree_white.gif"]').each do |src|
-      src.remove
-    end
-
-    doc.search('img[src="img/tree_open.gif"]').each do |src|
-      src.remove
-    end
-    
-    @word_meaning = doc.at('.lexingwt-TranslationPanel').to_s
-
-    browser = Watir::Browser.start "http://www.google.com/search?tbm=isch&q=#{params[:search]}"    
-    doc = Nokogiri::HTML.parse(browser.html)
-
+    dic = Nokogiri::HTML.parse(open("http://lexin.nada.kth.se/lexin/#searchinfo=both,swe_swe,#{params[:search]};"))
     # binding.pry
+
+    dic.search('img[src="img/tree_white.gif"]').each do |src|
+      src.remove
+    end
+    #
+    dic.search('img[src="img/tree_open.gif"]').each do |src|
+      src.remove
+    end
+
+    @word_meaning = dic.at('.lexingwt-TranslationPanel').to_s
+
+    # browser = Watir::Browser.start "http://www.google.com/search?tbm=isch&q=#{params[:search]}"
+    doc = Nokogiri::HTML.parse(open("https://www.google.com/search?q=#{params[:search]}&tbm=isch"))
+
     @img_links = []
-    # binding.pry
 
-    doc.css('img.rg_i').first(5).each do |noko|
+    doc.css('img').first(5).each do |noko|
       @img_links << noko.attributes['src'].value
     end
     
