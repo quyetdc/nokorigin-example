@@ -12,7 +12,7 @@ class ScraptsController < ApplicationController
     # binding.pry
     # headless = Headless.new
     # headless.start
-    browser = (Watir::Browser.new :phantomjs).start "http://lexin.nada.kth.se/lexin/#searchinfo=both,swe_swe,#{params[:search]};"
+    browser = (Watir::Browser.new :phantomjs).goto "http://lexin.nada.kth.se/lexin/#searchinfo=both,swe_swe,#{params[:search]};"
     
     dic = Nokogiri::HTML.parse(browser)
     # binding.pry
