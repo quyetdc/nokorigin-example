@@ -62,3 +62,5 @@ gem 'watir'
 gem 'headless'
 
 gem "font-awesome-rails"
+
+gem 'rails_12factor'
