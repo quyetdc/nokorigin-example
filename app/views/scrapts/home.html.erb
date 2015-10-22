@@ -2,6 +2,12 @@
   <div class="row">
     <h2 style="color: #3e3e3e; letter-spacing: 1.5px; text-align:center; margin-top: 80px;">SmartDictionary</h2>
   </div>
+  
+  <div class="row" style="text-align: center;">
+    
+    <button class="btn btn-lg btn-warning" id="loading"><span class="fa fa-refresh glyphicon-refresh-animate"></span> Searching...</button>
+
+  </div>
 
   <div class="row">
     <div id="search-box" class="col-md-8 col-md-offset-2">
@@ -42,5 +48,13 @@
         $("#search-result").append('</div>');        
       }
     });
+  });
+
+  $( document ).ajaxStart(function() {
+    $("#loading").css('opacity', 1);
+  });
+
+  $( document ).ajaxComplete(function() {
+    $("#loading").css('opacity', 0);
   });
 </script>

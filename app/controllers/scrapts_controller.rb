@@ -15,6 +15,14 @@ class ScraptsController < ApplicationController
     browser = Watir::Browser.start "http://lexin.nada.kth.se/lexin/#searchinfo=both,swe_swe,#{params[:search]};"
     
     doc = Nokogiri::HTML.parse(browser.html)
+    doc.search('img[src="img/tree_white.gif"]').each do |src|
+      src.remove
+    end
+
+    doc.search('img[src="img/tree_open.gif"]').each do |src|
+      src.remove
+    end
+    
     @word_meaning = doc.at('.lexingwt-TranslationPanel').to_s
 
     browser = Watir::Browser.start "http://www.google.com/search?tbm=isch&q=#{params[:search]}"    

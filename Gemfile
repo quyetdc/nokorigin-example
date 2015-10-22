@@ -60,3 +60,5 @@ gem 'watir'
 
 #  to hide browser, need to install
 gem 'headless'
+
+gem "font-awesome-rails"
