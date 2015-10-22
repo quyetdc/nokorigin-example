@@ -1,6 +1,6 @@
 <div class="container">
   <div class="row">
-    <h2 style="color: #3e3e3e; letter-spacing: 1.5px; text-align:center; margin-top: 80px;">SmartSearch</h2>
+    <h2 style="color: #3e3e3e; letter-spacing: 1.5px; text-align:center; margin-top: 80px;">SmartDictionary</h2>
   </div>
 
   <div class="row">
@@ -28,7 +28,18 @@
       dataType: "json",
       success: function(data) {              
         $("#search-result").html('');
+        
+        for(var i = 0; i < 5; i ++) {
+          $("#search-result").append(" <img src='"+ data['img_links'][i] + "' class='col-md-2 img-responsive'>");
+        }
+
+        $("#search-result").append('<br><br>');
+        $("#search-result").append('<div class="row">');
+        $("#search-result").append('<br><br>');
+        
         $("#search-result").append(data['word_meaning']);
+
+        $("#search-result").append('</div>');        
       }
     });
   });

@@ -58,5 +58,5 @@ gem 'nokogiri'
 # To open webpage 
 gem 'watir'
 
-#  to hide browser, need to install xvfb
+#  to hide browser, need to install
 gem 'headless'
