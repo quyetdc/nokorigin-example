@@ -2,6 +2,7 @@ require 'nokogiri'
 require 'open-uri'
 require 'watir'
 require "selenium-webdriver"
+require 'addressable/uri'
 
 class ScraptsController < ApplicationController
   def home
@@ -11,9 +12,17 @@ class ScraptsController < ApplicationController
   def search
     Selenium::WebDriver::PhantomJS.path = Rails.root.join('bin', 'phantomjs').to_s
 
-    browser = Watir::Browser.start "http://lexin.nada.kth.se/lexin/#searchinfo=both,swe_swe,#{params[:search]};", :phantomjs
+    # Normalize url when it contains non-ascii characters
+    uri = Addressable::URI.parse("http://lexin.nada.kth.se/lexin/#searchinfo=both,swe_swe,#{params[:search]};")
+    uri = uri.normalize
+
+
+    browser = Watir::Browser.start uri.to_s, :phantomjs
+
+    # binding.pry
 
     browser.table(:class, 'lexingwt-TranslationPanel').wait_until_present
+
 
     html_result = browser.table(:class, 'lexingwt-TranslationPanel').html
 
@@ -32,7 +41,10 @@ class ScraptsController < ApplicationController
 
     @word_meaning = dic.to_s
 
-    doc = Nokogiri::HTML.parse(open("https://www.google.com/search?q=#{params[:search]}&tbm=isch"))
+    uri = Addressable::URI.parse("https://www.google.com/search?q=#{params[:search]}&tbm=isch")
+    uri = uri.normalize
+
+    doc = Nokogiri::HTML(open(uri))
 
     @img_links = []
 

@@ -26,29 +26,45 @@
 </div>
 
 <script>
-  $('button#btn-submit').click(function(){
-    $.ajax({
-      url: '/search',
-      type: 'post',      
-      data: 'search=' + $('input#Search').val(),
-      dataType: "json",
-      success: function(data) {              
-        $("#search-result").html('');
-        
-        for(var i = 0; i < 5; i ++) {
-          $("#search-result").append(" <img src='"+ data['img_links'][i] + "' class='col-md-2 img-responsive'>");
+    document.getElementById('Search').onkeypress = function(e){
+        if (!e) e = window.event;
+        var keyCode = e.keyCode || e.which;
+        if (keyCode == '13'){
+            ajaxCall();
+
+            return false;
         }
+    };
 
-        $("#search-result").append('<br><br>');
-        $("#search-result").append('<div class="row">');
-        $("#search-result").append('<br><br>');
-        
-        $("#search-result").append(data['word_meaning']);
-
-        $("#search-result").append('</div>');        
-      }
-    });
+  $('button#btn-submit').click(function(){
+      ajaxCall();
   });
+
+    var ajaxCall = function(){
+        $.ajax({
+            url: '/search',
+            type: 'post',
+            data: 'search=' + $('input#Search').val(),
+            dataType: "json",
+            success: function(data) {
+                $("#search-result").html('');
+
+                for(var i = 0; i < 5; i ++) {
+                    $("#search-result").append(" <img src='"+ data['img_links'][i] + "' class='col-md-2 img-responsive'>");
+                }
+
+                $("#search-result").append('<br><br>');
+                $("#search-result").append('<div class="row">');
+                $("#search-result").append('<br><br>');
+
+                $("#search-result").append(data['word_meaning']);
+
+                $("#search-result").append('</div>');
+
+                $("#Search").val('');
+            }
+        });
+    }
 
   $( document ).ajaxStart(function() {
     $("#loading").css('opacity', 1);
