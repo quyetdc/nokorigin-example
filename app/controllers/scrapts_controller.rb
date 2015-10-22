@@ -13,7 +13,12 @@ class ScraptsController < ApplicationController
 
     browser = Watir::Browser.start "http://lexin.nada.kth.se/lexin/#searchinfo=both,swe_swe,#{params[:search]};", :phantomjs
 
-    dic = Nokogiri::HTML(browser.table(:class, 'lexingwt-TranslationPanel').html)
+    browser.table(:class, 'lexingwt-TranslationPanel').wait_until_present
+
+    html_result = browser.table(:class, 'lexingwt-TranslationPanel').html
+
+    dic = Nokogiri::HTML(html_result)
+
 
     dic.search('img[src="img/tree_white.gif"]').each do |src|
       src.remove
