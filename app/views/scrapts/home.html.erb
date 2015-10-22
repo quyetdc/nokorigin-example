@@ -20,10 +20,10 @@
     $.ajax({
       url: '/search',
       type: 'post',      
-      data: 'search=' + 'search',
+      data: 'search=' + $('input#Search').val(),
       dataType: "json",
-      success: function(data) {      
-        console.log(data)  ;
+      success: function(data) {              
+        $("#search-result").html('');
         $("#search-result").append(data['word_meaning']);
       }
     });

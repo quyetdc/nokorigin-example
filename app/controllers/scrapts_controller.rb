@@ -12,7 +12,7 @@ class ScraptsController < ApplicationController
     # binding.pry
     headless = Headless.new
     headless.start
-    browser = Watir::Browser.start 'http://lexin.nada.kth.se/lexin/#searchinfo=both,swe_swe,hittar;'
+    browser = Watir::Browser.start "http://lexin.nada.kth.se/lexin/#searchinfo=both,swe_swe,#{params[:search]};"
     
     doc = Nokogiri::HTML.parse(browser.html)
     @word_meaning = doc.at('.lexingwt-TranslationPanel').to_s
