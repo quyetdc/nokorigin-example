@@ -53,6 +53,10 @@ end
 gem "twitter-bootstrap-rails"
 
 # these gems are for web scraping
-gem 'mechanize'
 gem 'nokogiri'
+
+# To open webpage 
 gem 'watir'
+
+#  to hide browser, need to install xvfb
+gem 'headless'

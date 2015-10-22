@@ -1,7 +1,7 @@
 require 'nokogiri'
-require 'mechanize'
 require 'open-uri'
 require 'watir'
+require 'headless'
 
 class ScraptsController < ApplicationController
   def home
@@ -10,15 +10,15 @@ class ScraptsController < ApplicationController
   # POST /search
   def search
     # binding.pry
-
-    browser = Watir::Browser.new
-    browser.goto 'http://lexin.nada.kth.se/lexin/#searchinfo=both,swe_swe,hittar;'
-
+    headless = Headless.new
+    headless.start
+    browser = Watir::Browser.start 'http://lexin.nada.kth.se/lexin/#searchinfo=both,swe_swe,hittar;'
+    
     doc = Nokogiri::HTML.parse(browser.html)
-    @word_meaning = doc.at('.lexingwt-TranslationPanel')
+    @word_meaning = doc.at('.lexingwt-TranslationPanel').to_s
 
-    respond_to do |format|
-      format.js
+    respond_to do |format|      
+      format.json { render json: { word_meaning: @word_meaning }} 
     end
   end
 
